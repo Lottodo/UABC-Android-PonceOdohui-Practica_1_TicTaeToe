@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("BOTON", "PRESIONASTE UN BOTON")
         when(view)
         {
-            findViewById<Button>(R.id.button00) -> {
+            findViewById<ImageView>(R.id.button00) -> {
                 view?.setAlpha(1.0F)
                 view?.setBackgroundResource(R.drawable.o)
                 view?.setBackgroundColor(R.color.black)
