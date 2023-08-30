@@ -2,6 +2,7 @@ package uabc.ico.tictaetoe
 
 //import android.R
 import android.annotation.SuppressLint
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
+
+    val juego: Juego = TODO()
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,63 +31,58 @@ class MainActivity : AppCompatActivity() {
     fun presionarBoton(view: View?) {
         Log.d("BOTON", "PRESIONASTE UN BOTON")
 
+        val tirada: Int = juego.jugarTurno()
+        var figura: Int
 
+        if(tirada != 2) {
+            figura = if (tirada == 0) R.drawable.o else R.drawable.x
 
-        when(view)
-        {
-            findViewById<ImageView>(R.id.imageButton00) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
+            when (view) {
+                findViewById<ImageView>(R.id.imageButton00) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
 
-                dibujarBarraGanadora(true,false,0) //Diag 1
+                findViewById<ImageView>(R.id.imageButton01) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton02) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton10) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton11) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton12) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton20) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton21) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
+
+                findViewById<ImageView>(R.id.imageButton22) -> {
+                    view?.alpha = 1.0F
+                    view?.setBackgroundResource(figura)
+                }
             }
-            findViewById<ImageView>(R.id.imageButton01) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(true,false,1) //Diag 2
-            }
-            findViewById<ImageView>(R.id.imageButton02) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(false,true,0) //vert 0
-            }
-            findViewById<ImageView>(R.id.imageButton10) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(false,true,1) //vert 1
-            }
-            findViewById<ImageView>(R.id.imageButton11) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(false,true,2) //vert 2
-            }
-            findViewById<ImageView>(R.id.imageButton12) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(false,false,0) //hori 0
-            }
-            findViewById<ImageView>(R.id.imageButton20) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(false,false,1) //hori 1
-            }
-            findViewById<ImageView>(R.id.imageButton21) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-
-                dibujarBarraGanadora(false,false,2) //hori 2
-            }
-            findViewById<ImageView>(R.id.imageButton22) -> {
-                view?.alpha = 1.0F
-                view?.setBackgroundResource(R.drawable.o)
-            }
-
         }
 
 
