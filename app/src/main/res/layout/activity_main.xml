@@ -8,9 +8,9 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton22"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,9 +23,9 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton21"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,9 +38,9 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton20"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,9 +53,9 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton12"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,9 +68,9 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton11"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,9 +83,9 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton10"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,10 +99,10 @@
 
     <ImageView
         android:id="@+id/imageButton00"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="presionarBoton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:alpha="0"
+        android:onClick="presionarBoton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.221"
@@ -113,9 +113,9 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:id="@+id/imageButton01"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:onClick="presionarBoton"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -128,17 +128,41 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="presionarBoton"
+        android:id="@+id/imageButton02"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:alpha="0"
+        android:onClick="presionarBoton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
+        app:layout_constraintHorizontal_bias="0.865"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.371"
+        app:layout_constraintVertical_bias="0.368"
         app:srcCompat="@drawable/o"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/diagonalImageView"
+        android:layout_width="265dp"
+        android:layout_height="337dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/diagonal"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/rectaImageView"
+        android:layout_width="56dp"
+        android:layout_height="276dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498"
+        app:srcCompat="@drawable/recta"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
