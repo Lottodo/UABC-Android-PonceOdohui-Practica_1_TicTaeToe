@@ -165,4 +165,17 @@
         app:layout_constraintVertical_bias="0.498"
         app:srcCompat="@drawable/recta"
         tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="300dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.657"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025"
+        app:srcCompat="@drawable/tictaetoe_logo"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

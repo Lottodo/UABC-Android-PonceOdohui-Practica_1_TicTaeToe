@@ -2,18 +2,15 @@ package uabc.ico.tictaetoe
 
 //import android.R
 import android.annotation.SuppressLint
-import android.media.Image
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
 
-    val juego: Juego = TODO()
+    val juego: Juego = Juego()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,71 +26,41 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceAsColor")
     fun presionarBoton(view: View?) {
-        Log.d("BOTON", "PRESIONASTE UN BOTON")
 
-        val tirada: Int = juego.jugarTurno()
-        var figura: Int
 
-        if(tirada != 2) {
-            figura = if (tirada == 0) R.drawable.o else R.drawable.x
+        val turno: Int = juego.jugarTurno()
+        val simbolo: Int
 
+
+        if(turno != 2) {
+            simbolo = if (turno == 0) R.drawable.x else R.drawable.o
+            var imgV: ImageView? = null
             when (view) {
-                findViewById<ImageView>(R.id.imageButton00) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton01) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton02) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton10) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton11) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton12) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton20) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton21) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
-
-                findViewById<ImageView>(R.id.imageButton22) -> {
-                    view?.alpha = 1.0F
-                    view?.setBackgroundResource(figura)
-                }
+                findViewById<ImageView>(R.id.imageButton00) -> imgV = findViewById(R.id.imageButton00)
+                findViewById<ImageView>(R.id.imageButton01) -> imgV = findViewById(R.id.imageButton01)
+                findViewById<ImageView>(R.id.imageButton02) -> imgV = findViewById(R.id.imageButton02)
+                findViewById<ImageView>(R.id.imageButton10) -> imgV = findViewById(R.id.imageButton10)
+                findViewById<ImageView>(R.id.imageButton11) -> imgV = findViewById(R.id.imageButton11)
+                findViewById<ImageView>(R.id.imageButton12) -> imgV = findViewById(R.id.imageButton12)
+                findViewById<ImageView>(R.id.imageButton20) -> imgV = findViewById(R.id.imageButton20)
+                findViewById<ImageView>(R.id.imageButton21) -> imgV = findViewById(R.id.imageButton21)
+                findViewById<ImageView>(R.id.imageButton22) -> imgV = findViewById(R.id.imageButton22)
+            }
+            if (imgV != null) {
+                imgV.alpha = 1.0F
+                imgV.setImageResource(simbolo)
             }
         }
 
 
     }
 
-    fun dibujarBarraGanadora(diagonal: Boolean, vertical: Boolean, posicion: Int) {
+
+    /*fun dibujarBarraGanadora(diagonal: Boolean, vertical: Boolean, posicion: Int) {
         if(diagonal) {
             val diag: ImageView = findViewById(R.id.diagonalImageView)
             diag.alpha = 1.0F
 
-            val recta: ImageView = findViewById(R.id.rectaImageView)
 
             if(posicion == 0) //posicion = 0 izq a der, posicion = 1 der a izq
                 diag.scaleX = 1F
@@ -126,5 +93,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+    }*/
 }
