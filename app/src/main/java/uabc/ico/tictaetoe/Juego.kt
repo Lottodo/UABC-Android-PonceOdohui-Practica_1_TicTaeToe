@@ -48,4 +48,12 @@ class Juego {
         movimientos = movAux
         return -1 //NO GANÓ
     }
+
+    fun reiniciarJuego() {
+        movimientos = 0
+        espacios = BooleanArray(9)
+        turno = false
+        jugador1.reiniciarJugador()
+        jugador2.reiniciarJugador()
+    }
 }

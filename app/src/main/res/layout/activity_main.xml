@@ -181,8 +181,8 @@
 
     <TextView
         android:id="@+id/jugandoView"
-        android:layout_width="242dp"
-        android:layout_height="52dp"
+        android:layout_width="240dp"
+        android:layout_height="55dp"
         android:layout_marginTop="29dp"
         android:layout_marginBottom="46dp"
         android:fontFamily="@font/majesty_regular"
@@ -207,5 +207,18 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/x"
         tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/reinicioView"
+        android:layout_width="294dp"
+        android:layout_height="77dp"
+        android:onClick="reiniciarJuego"
+        android:alpha="0"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton21"
+        app:srcCompat="@drawable/reinicio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

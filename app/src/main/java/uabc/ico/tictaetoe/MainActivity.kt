@@ -22,10 +22,12 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
 
-        var line: ImageView = findViewById(R.id.diagonalImageView) //Para voltear usa scaleX
-        line.alpha = 0.0F
-        line = findViewById(R.id.rectaImageView)
-        line.alpha = 0.0F
+
+
+        var iV: ImageView = findViewById(R.id.diagonalImageView) //Para voltear usa scaleX
+        iV.alpha = 0.0F
+        iV = findViewById(R.id.rectaImageView)
+        iV.alpha = 0.0F
 
         turnoV = findViewById(R.id.turnoView)
         turnoV.setImageResource(R.drawable.x)
@@ -64,6 +66,14 @@ class MainActivity : AppCompatActivity() {
                 simbolo = if (!juego.turno) R.drawable.x else R.drawable.o
                 turnoV.setImageResource(simbolo)
 
+                Log.d("MAIN","MOVIMIENTOS: "+juego.movimientos)
+                if (juego.movimientos==9) {
+                    val reinicioV: View = findViewById(R.id.reinicioView)
+                    reinicioV.alpha = 1.0F; reinicioV.isClickable = true
+                    turnoV.alpha=0.0F
+                    val tV: TextView = findViewById(R.id.jugandoView); tV.text="empate"
+                }
+
                 if (juego.verificarGanador(juego.jugador1) != -1) dibujarGanador(juego.verificarGanador(juego.jugador1),false)
                 else if (juego.verificarGanador(juego.jugador2) != -1) dibujarGanador(juego.verificarGanador(juego.jugador2),true)
             }
@@ -86,9 +96,11 @@ class MainActivity : AppCompatActivity() {
         return -1
     }
 
-    //False: Jugador 1, True: Jugador 2
+
     @SuppressLint("SetTextI18n")
     private fun dibujarGanador(linea: Int, jugador: Boolean) {
+
+        //False: Jugador 1, True: Jugador 2
         when(linea) {
             0 -> dibujarBarraGanadora(0)
             1 -> dibujarBarraGanadora(1)
@@ -100,13 +112,15 @@ class MainActivity : AppCompatActivity() {
             7 -> dibujarBarraGanadora(true,2)
         }
 
+        val reinicioV = findViewById<ImageView>(R.id.reinicioView)
+        reinicioV.alpha = 1.0F; reinicioV.isClickable = true
+
         val jugandoV: TextView = findViewById(R.id.jugandoView)
         jugandoV.text = "HA GANADO"
         val turnoV: ImageView = findViewById(R.id.turnoView)
         if(jugador) turnoV.setImageResource(R.drawable.x)
         else turnoV.setImageResource(R.drawable.o)
     }
-
 
     private fun dibujarBarraGanadora(posicion: Int) {
         val diag: ImageView = findViewById(R.id.diagonalImageView)
@@ -117,8 +131,9 @@ class MainActivity : AppCompatActivity() {
         else
             diag.scaleX = -1F
     }
+
     private fun dibujarBarraGanadora(vertical: Boolean, posicion: Int) {
-            val recta: ImageView = findViewById(R.id.rectaImageView)                                     //DEBUG
+            val recta: ImageView = findViewById(R.id.rectaImageView)
 
             recta.alpha = 1.0F
             val pos0Aux: ImageView = findViewById(R.id.imageButton00)
@@ -143,5 +158,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+    }
+
+    fun reiniciarJuego(view: View?) {
+        juego.reiniciarJuego()
+
+        turnoV = findViewById(R.id.turnoView)
+        turnoV.setImageResource(R.drawable.x)
+
+        val tV: TextView = findViewById(R.id.jugandoView); tV.text = "jugando"
+
+        var iV: ImageView = findViewById(R.id.diagonalImageView) //Para voltear usa scaleX
+        iV.alpha = 0.0F
+        iV = findViewById(R.id.rectaImageView)
+        iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton00); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton01); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton02); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton10); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton11); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton12); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton20); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton21); iV.alpha = 0.0F
+        iV = findViewById(R.id.imageButton22); iV.alpha = 0.0F
+        iV = findViewById(R.id.turnoView); iV.alpha = 1.0F
+
+        if (view != null) {
+            view.alpha = 0.0F
+            view.isClickable = false
+        }
     }
 }

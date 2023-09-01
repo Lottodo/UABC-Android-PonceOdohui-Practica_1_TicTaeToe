@@ -7,4 +7,8 @@ class Jugador {
     fun jugarTurno(pos: Int){
         espacios[pos] = true
     }
+
+    fun reiniciarJugador() {
+        espacios = BooleanArray(9)
+    }
 }
