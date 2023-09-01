@@ -2,4 +2,5 @@
     <string name="app_name">TicTaeToe</string>
     <string name="button">Button</string>
     <string name="jugando">jugando</string>
+    <string name="ganador">HA GANADO</string>
 </resources>
