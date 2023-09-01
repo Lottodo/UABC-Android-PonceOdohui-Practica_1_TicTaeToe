@@ -3,16 +3,18 @@ package uabc.ico.tictaetoe
 //import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 
 
 class MainActivity : AppCompatActivity() {
 
-    val juego: Juego = Juego()
-    lateinit var turnoV: ImageView
+    private val juego: Juego = Juego()
+    private lateinit var turnoV: ImageView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         line.alpha = 0.0F
 
         turnoV = findViewById(R.id.turnoView)
-        turnoV.setImageResource(R.drawable.o)
+        turnoV.setImageResource(R.drawable.x)
 
     }
 
@@ -34,49 +36,88 @@ class MainActivity : AppCompatActivity() {
     fun presionarBoton(view: View?) {
 
 
-        val turno: Int = juego.jugarTurno()
+        //val turno: Int = juego.jugarTurno()
         var simbolo: Int
 
+        val posicion: Int = getImageButtonId(view)
+        val posDisponible: Boolean = juego.verificarPosicionDisponible(posicion)
 
-        if(turno != 2) {
-            if(turnoV.alpha == 0.0F) turnoV.alpha = 1.0F
-
-            simbolo = if (turno == 0) R.drawable.x else R.drawable.o
+        if(posDisponible) {
+            Log.d("MAIN", "POSICION DISPONIBLE")
+            simbolo = if (!juego.turno) R.drawable.x else R.drawable.o
             var imgV: ImageView? = null
-            when (view) {
-                findViewById<ImageView>(R.id.imageButton00) -> imgV = findViewById(R.id.imageButton00)
-                findViewById<ImageView>(R.id.imageButton01) -> imgV = findViewById(R.id.imageButton01)
-                findViewById<ImageView>(R.id.imageButton02) -> imgV = findViewById(R.id.imageButton02)
-                findViewById<ImageView>(R.id.imageButton10) -> imgV = findViewById(R.id.imageButton10)
-                findViewById<ImageView>(R.id.imageButton11) -> imgV = findViewById(R.id.imageButton11)
-                findViewById<ImageView>(R.id.imageButton12) -> imgV = findViewById(R.id.imageButton12)
-                findViewById<ImageView>(R.id.imageButton20) -> imgV = findViewById(R.id.imageButton20)
-                findViewById<ImageView>(R.id.imageButton21) -> imgV = findViewById(R.id.imageButton21)
-                findViewById<ImageView>(R.id.imageButton22) -> imgV = findViewById(R.id.imageButton22)
+            when (posicion) {
+                0 -> imgV = findViewById(R.id.imageButton00)
+                1 -> imgV = findViewById(R.id.imageButton01)
+                2 -> imgV = findViewById(R.id.imageButton02)
+                3 -> imgV = findViewById(R.id.imageButton10)
+                4 -> imgV = findViewById(R.id.imageButton11)
+                5 -> imgV = findViewById(R.id.imageButton12)
+                6 -> imgV = findViewById(R.id.imageButton20)
+                7 -> imgV = findViewById(R.id.imageButton21)
+                8 -> imgV = findViewById(R.id.imageButton22)
             }
             if (imgV != null) {
+                juego.jugarTurno(posicion)
                 imgV.alpha = 1.0F
                 imgV.setImageResource(simbolo)
-                simbolo = if (turno == 0) R.drawable.o else R.drawable.x
+                simbolo = if (!juego.turno) R.drawable.x else R.drawable.o
                 turnoV.setImageResource(simbolo)
+
+                if (juego.verificarGanador(juego.jugador1) != -1) dibujarGanador(juego.verificarGanador(juego.jugador1),false)
+                else if (juego.verificarGanador(juego.jugador2) != -1) dibujarGanador(juego.verificarGanador(juego.jugador2),true)
             }
         }
 
     }
 
-
-    /*fun dibujarBarraGanadora(diagonal: Boolean, vertical: Boolean, posicion: Int) {
-        if(diagonal) {
-            val diag: ImageView = findViewById(R.id.diagonalImageView)
-            diag.alpha = 1.0F
-
-
-            if(posicion == 0) //posicion = 0 izq a der, posicion = 1 der a izq
-                diag.scaleX = 1F
-            else
-                diag.scaleX = -1F
+    private fun getImageButtonId(view: View?): Int {
+        when (view) {
+            findViewById<ImageView>(R.id.imageButton00) -> return 0 //00
+            findViewById<ImageView>(R.id.imageButton01) -> return 1 //01
+            findViewById<ImageView>(R.id.imageButton02) -> return 2 //02
+            findViewById<ImageView>(R.id.imageButton10) -> return 3  //10
+            findViewById<ImageView>(R.id.imageButton11) -> return 4  //11
+            findViewById<ImageView>(R.id.imageButton12) -> return 5  //12
+            findViewById<ImageView>(R.id.imageButton20) -> return 6  //20
+            findViewById<ImageView>(R.id.imageButton21) -> return 7  //21
+            findViewById<ImageView>(R.id.imageButton22) -> return 8  //22
         }
-        else {
+        return -1
+    }
+
+    //False: Jugador 1, True: Jugador 2
+    @SuppressLint("SetTextI18n")
+    private fun dibujarGanador(linea: Int, jugador: Boolean) {
+        when(linea) {
+            0 -> dibujarBarraGanadora(0)
+            1 -> dibujarBarraGanadora(1)
+            2 -> dibujarBarraGanadora(false,0)
+            3 -> dibujarBarraGanadora(false,1)
+            4 -> dibujarBarraGanadora(false,2)
+            5 -> dibujarBarraGanadora(true,0)
+            6 -> dibujarBarraGanadora(true,1)
+            7 -> dibujarBarraGanadora(true,2)
+        }
+
+        val jugandoV: TextView = findViewById(R.id.jugandoView)
+        jugandoV.text = "HA GANADO"
+        val turnoV: ImageView = findViewById(R.id.turnoView)
+        if(jugador) turnoV.setImageResource(R.drawable.x)
+        else turnoV.setImageResource(R.drawable.o)
+    }
+
+
+    private fun dibujarBarraGanadora(posicion: Int) {
+        val diag: ImageView = findViewById(R.id.diagonalImageView)
+        diag.alpha = 1.0F
+
+        if(posicion == 0) //posicion = 0 izq a der, posicion = 1 der a izq
+            diag.scaleX = 1F
+        else
+            diag.scaleX = -1F
+    }
+    private fun dibujarBarraGanadora(vertical: Boolean, posicion: Int) {
             val recta: ImageView = findViewById(R.id.rectaImageView)                                     //DEBUG
 
             recta.alpha = 1.0F
@@ -101,6 +142,6 @@ class MainActivity : AppCompatActivity() {
                     2 -> { recta.y = pos2Aux.y - recta.height/4 - pos0Aux.height/4}
                 }
             }
-        }
-    }*/
+
+    }
 }
