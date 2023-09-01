@@ -6,21 +6,27 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 
 
 class MainActivity : AppCompatActivity() {
 
     val juego: Juego = Juego()
+    lateinit var turnoV: ImageView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
 
         var line: ImageView = findViewById(R.id.diagonalImageView) //Para voltear usa scaleX
         line.alpha = 0.0F
         line = findViewById(R.id.rectaImageView)
         line.alpha = 0.0F
+
+        turnoV = findViewById(R.id.turnoView)
+        turnoV.setImageResource(R.drawable.o)
 
     }
 
@@ -29,10 +35,12 @@ class MainActivity : AppCompatActivity() {
 
 
         val turno: Int = juego.jugarTurno()
-        val simbolo: Int
+        var simbolo: Int
 
 
         if(turno != 2) {
+            if(turnoV.alpha == 0.0F) turnoV.alpha = 1.0F
+
             simbolo = if (turno == 0) R.drawable.x else R.drawable.o
             var imgV: ImageView? = null
             when (view) {
@@ -49,9 +57,10 @@ class MainActivity : AppCompatActivity() {
             if (imgV != null) {
                 imgV.alpha = 1.0F
                 imgV.setImageResource(simbolo)
+                simbolo = if (turno == 0) R.drawable.o else R.drawable.x
+                turnoV.setImageResource(simbolo)
             }
         }
-
 
     }
 
