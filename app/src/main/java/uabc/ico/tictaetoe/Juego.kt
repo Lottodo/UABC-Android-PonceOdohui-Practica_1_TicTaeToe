@@ -6,6 +6,7 @@ class Juego {
 
     val jugador1: Jugador = Jugador()
     val jugador2: Jugador = Jugador()
+
     var turno: Boolean = false //
     var movimientos: Int = 0
     var espacios = BooleanArray(9)
