@@ -3,10 +3,10 @@ package uabc.ico.tictaetoe
 //import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 
@@ -34,48 +34,29 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
     fun presionarBoton(view: View?) {
-
-
-        //val turno: Int = juego.jugarTurno()
-        var simbolo: Int
-
         val posicion: Int = getImageButtonId(view)
-        val posDisponible: Boolean = juego.verificarPosicionDisponible(posicion)
 
-        if(posDisponible) {
-            Log.d("MAIN", "POSICION DISPONIBLE")
-            simbolo = if (!juego.turno) R.drawable.x else R.drawable.o
-            var imgV: ImageView? = null
-            when (posicion) {
-                0 -> imgV = findViewById(R.id.imageButton00)
-                1 -> imgV = findViewById(R.id.imageButton01)
-                2 -> imgV = findViewById(R.id.imageButton02)
-                3 -> imgV = findViewById(R.id.imageButton10)
-                4 -> imgV = findViewById(R.id.imageButton11)
-                5 -> imgV = findViewById(R.id.imageButton12)
-                6 -> imgV = findViewById(R.id.imageButton20)
-                7 -> imgV = findViewById(R.id.imageButton21)
-                8 -> imgV = findViewById(R.id.imageButton22)
+        if(juego.verificarPosicionDisponible(posicion)) {
+            actualizarTablero(false,juego.jugarTurno(posicion))
+            if(!juego.espacios.all { it }) actualizarTablero(true,juego.jugarTurnoCPU())
+
+            if (juego.movimientos>=9) {
+                val reinicioV: View = findViewById(R.id.reinicioView)
+                reinicioV.alpha = 1.0F; reinicioV.isClickable = true
+                turnoV.alpha=0.0F
+                val tV: TextView = findViewById(R.id.jugandoView)
+                tV.text="empate"
             }
-            if (imgV != null) {
-                juego.jugarTurno(posicion)
-                imgV.alpha = 1.0F
-                imgV.setImageResource(simbolo)
-                simbolo = if (!juego.turno) R.drawable.x else R.drawable.o
-                turnoV.setImageResource(simbolo)
 
-                Log.d("MAIN","MOVIMIENTOS: "+juego.movimientos)
-                if (juego.movimientos==9) {
-                    val reinicioV: View = findViewById(R.id.reinicioView)
-                    reinicioV.alpha = 1.0F; reinicioV.isClickable = true
-                    turnoV.alpha=0.0F
-                    val tV: TextView = findViewById(R.id.jugandoView); tV.text="empate"
-                }
-
-                if (juego.verificarGanador(juego.jugador1) != -1) dibujarGanador(juego.verificarGanador(juego.jugador1),false)
-                else if (juego.verificarGanador(juego.jugador2) != -1) dibujarGanador(juego.verificarGanador(juego.jugador2),true)
+            if (juego.verificarGanador(juego.jugador1) != -1) {
+                Toast.makeText(applicationContext,"GANÓ EL JUGADOR",Toast.LENGTH_LONG).show()
+                dibujarGanador(juego.verificarGanador(juego.jugador1), false)
+            }
+            if (juego.verificarGanador(juego.jugador2) != -1) {
+                Toast.makeText(applicationContext,"GANÓ EL CPU",Toast.LENGTH_LONG).show()
+                dibujarGanador(juego.verificarGanador(juego.jugador2), true)
             }
         }
 
@@ -94,6 +75,30 @@ class MainActivity : AppCompatActivity() {
             findViewById<ImageView>(R.id.imageButton22) -> return 8  //22
         }
         return -1
+    }
+
+    private fun actualizarTablero(jugador: Boolean, pos: Int) {
+        val simbolo: Int
+        simbolo = if(jugador) R.drawable.x else R.drawable.o
+
+        var iV: ImageView? = null
+
+        when (pos) {
+            0 -> iV = findViewById<ImageView>(R.id.imageButton00)
+            1 -> iV = findViewById<ImageView>(R.id.imageButton01)
+            2 -> iV = findViewById<ImageView>(R.id.imageButton02)
+            3 -> iV = findViewById<ImageView>(R.id.imageButton10)
+            4 -> iV = findViewById<ImageView>(R.id.imageButton11)
+            5 -> iV = findViewById<ImageView>(R.id.imageButton12)
+            6 -> iV = findViewById<ImageView>(R.id.imageButton20)
+            7 -> iV = findViewById<ImageView>(R.id.imageButton21)
+            8 -> iV = findViewById<ImageView>(R.id.imageButton22)
+        }
+        iV?.alpha = 1.0F
+        iV?.setImageResource(simbolo)
+
+
+
     }
 
 
@@ -160,13 +165,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("CutPasteId", "SetTextI18n")
     fun reiniciarJuego(view: View?) {
         juego.reiniciarJuego()
 
         turnoV = findViewById(R.id.turnoView)
         turnoV.setImageResource(R.drawable.x)
 
-        val tV: TextView = findViewById(R.id.jugandoView); tV.text = "jugando"
+        val tV: TextView = findViewById(R.id.jugandoView)
+        tV.text = "jugando"
 
         var iV: ImageView = findViewById(R.id.diagonalImageView) //Para voltear usa scaleX
         iV.alpha = 0.0F

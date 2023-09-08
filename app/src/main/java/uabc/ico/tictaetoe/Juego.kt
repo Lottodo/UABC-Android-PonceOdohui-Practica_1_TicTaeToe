@@ -11,29 +11,42 @@ class Juego {
     var espacios = BooleanArray(9)
 
     //Variable posicion se comporta tomando valores de 0 a 9
-    fun jugarTurno(pos: Int) { //: Int{
+    fun jugarTurno(pos: Int) : Int{
         //Actualizar posiciones
         if(movimientos<9) {
-            movimientos++
+            movimientos+=2
 
             espacios[pos] = true
-            turno = !turno
-            if (turno==false) {
-                Log.d("JUEGO", "RESULTADO: 0")
-                jugador1.jugarTurno(pos)
-            } //return 0 }
-            else {
-                Log.d("JUEGO", "RESULTADO: 1")
-                jugador2.jugarTurno(pos)
-            } //return 1 }
-
+            jugador1.jugarTurno(pos)
+            return pos
         }
         //No hacer nada
-     //return 2
+     return -1
+    }
+
+    fun jugarTurnoCPU(): Int {
+        val espacioLibre = getEspacioLibreRandom()
+        Log.d("JUEGO","Espacio libre:"+espacioLibre)
+        espacios[espacioLibre] = true
+        jugador2.jugarTurno(espacioLibre)
+
+        if(espacios[espacioLibre]) Log.d("JUEGO","LUGAR "+espacioLibre+" OCUPADO")
+
+        return espacioLibre
     }
 
     fun verificarPosicionDisponible(posicion: Int) : Boolean {
-        return !espacios[posicion] && movimientos<9
+        return !espacios[posicion]
+    }
+
+    fun getEspacioLibreRandom(): Int {
+        val espaciosLibres = mutableListOf<Int>()
+
+        espacios.forEachIndexed { index, value ->
+            if(!value) espaciosLibres.add(index)
+        }
+
+        return espaciosLibres.random()
     }
 
 
